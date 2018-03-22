@@ -11,8 +11,7 @@ $(document).ready(function() {
     // Declare GLOBAL variables
     var mainCrystal = 0
     var smallCrystals = [0, 0, 0 ,0]
-
-    var playerPoints = 0
+    var playerPoints
         
     var $controlCrystals
     var randomMainCrystalValue = 0
@@ -23,8 +22,15 @@ $(document).ready(function() {
 
 
     // New Game - 
-    $('body').on('click', '#button-newgame' , function () {
+    $('body').on('click', '#button-newgame' , newGame)
+
+
+    function newGame () {
         randomMainCrystalValue = 0
+        playerPoints = 0
+        $('#menu-player-value').html(playerPoints)
+        
+        
         var randomSmallCrystalValue = 0
         var counter = 0
         var targetElem = ''
@@ -83,7 +89,7 @@ $(document).ready(function() {
         
         console.log(smallCrystals)
 
-    })
+    }
 
      // Click on crystals event listener
     $('#control-crystals').on('click', '.cell', function(event) {
@@ -105,12 +111,18 @@ $(document).ready(function() {
             console.log('YOU WIN!!')
             wins++
             $('#menu-wins').html(wins)
+            alert('YOU WIN!')
+            newGame()
+            
         }
 
-        if (playerPoints > randomMainCrystalValue) {
+        else if (playerPoints > randomMainCrystalValue) {
             console.log('YOU LOSE!!')
             losses++
             $('#menu-losses').html(losses)
+            alert('YOU LOSE!')
+            
+            newGame()
         }
 
     })
